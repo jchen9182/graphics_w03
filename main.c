@@ -8,11 +8,13 @@
 #include "matrix.h"
 
 int main() {
+    // screen s;
+    // struct matrix *edges;
+    //
+    // edges = new_matrix(4, 4);
+    //
+    // free_matrix(edges);
+
+    // Testing Matrix Functions
     
-    screen s;
-    struct matrix *edges;
-
-    edges = new_matrix(4, 4);
-
-    free_matrix( edges );
 }

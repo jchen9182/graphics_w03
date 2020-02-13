@@ -22,6 +22,14 @@ print the matrix such that it looks like
 the template in the top comment
 */
 void print_matrix(struct matrix *m) {
+    int rows = m -> rows;
+    int cols = m -> cols;
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+            printf("%f ", m[row][col]);
+        }
+        printf("\n");
+    }
 }
 
 /*-------------- void ident() --------------
@@ -30,6 +38,15 @@ Inputs:  struct matrix *m <-- assumes m is a square matrix
 turns m in to an identity matrix
 */
 void ident(struct matrix *m) {
+    int rows = m -> rows;
+    int cols = m -> cols;
+    int counter = 0;
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+            if (col == counter++) m[row][col] = 1;
+            else m[row][col] = 0;
+        }
+    }
 }
 
 
@@ -41,6 +58,27 @@ multiply a by b, modifying b to be the product
 a*b -> b
 */
 void matrix_mult(struct matrix *a, struct matrix *b) {
+    int a_rows = a -> rows;
+    int a_cols = a -> cols;
+    int b_rows = b -> rows;
+    int b_cols = b -> cols;
+
+    if (a_cols != b_rows) {
+        printf("NOT THE SAME SIZE!\n");
+        return;
+    }
+
+    struct matrix *copy = new_matrix(a_rows, b_cols);
+    copy_matrix(b, copy);
+
+    for (int a_r = 0; a_r < a_rows; a_r++) {
+        for (int colrow = 0; colrow < a_cols; colrow++) {
+            for (int b_c = 1 b_c < b_cols; b_c++) {
+                double result = a[a_r][colrow] * b[colrow][b_c];
+                
+            }
+        }
+    }
 }
 
 
@@ -66,7 +104,7 @@ struct matrix *new_matrix(int rows, int cols) {
     for (i=0;i<rows;i++) {
         tmp[i]=(double *)malloc(cols * sizeof(double));
     }
-    
+
     m=(struct matrix *)malloc(sizeof(struct matrix));
     m->m=tmp;
     m->rows = rows;
