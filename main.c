@@ -15,6 +15,16 @@ int main() {
     //
     // free_matrix(edges);
 
-    // Testing Matrix Functions
-    
+    printf("TESTING MATRIX FUNCTIONS:\n\n");
+
+    printf("Testing ident(m1)\n");
+    struct matrix * m1 = new_matrix(4, 4);
+    ident(m1);
+    print_matrix(m1);
+
+    printf("\nTesting matrix_mult(m1, m2)\n");
+
+    free_matrix(m1);
+
+
 }
