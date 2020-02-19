@@ -15,7 +15,8 @@ Returns:
 adds point (x, y, z) to points and increment points.lastcol
 if points is full, should call grow on points
 ====================*/
-void add_point( struct matrix * points, double x, double y, double z) {
+void add_point(struct matrix *points, double x, double y, double z)
+{
 }
 
 /*======== void add_edge() ==========
@@ -25,12 +26,12 @@ Returns:
 add the line connecting (x0, y0, z0) to (x1, y1, z1) to points
 should use add_point
 ====================*/
-void add_edge( struct matrix * points,
-    double x0, double y0, double z0,
-    double x1, double y1, double z1) {
-    }
+void add_edge(struct matrix *points,
+              double x0, double y0, double z0,
+              double x1, double y1, double z1) {
+}
 
-    /*======== void draw_lines() ==========
+/*======== void draw_lines() ==========
     Inputs:   struct matrix * points
     screen s
     color c
@@ -38,106 +39,135 @@ void add_edge( struct matrix * points,
     Go through points 2 at a time and call draw_line to add that line
     to the screen
     ====================*/
-    void draw_lines( struct matrix * points, screen s, color c) {
-    }
+void draw_lines(struct matrix *points, screen s, color c) {
+    double ** matrix = points -> m;
+    int rows = 4;
+    int cols = points -> cols;
+    int x0, y0, x1, y1;
 
+    for (int col = 0; col < cols; col++) {
+        int ready = col % 2;
 
-
-
-
-
-
-
-
-    void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
-
-        int x, y, d, A, B;
-        //swap points if going right -> left
-        int xt, yt;
-        if (x0 > x1) {
-            xt = x0;
-            yt = y0;
-            x0 = x1;
-            y0 = y1;
-            x1 = xt;
-            y1 = yt;
+        for (int row = 0; row < rows - 2; row++) {
+            if (ready) {
+                if (row == 0) x1 = (int) matrix[row][col];
+                else y1 = (int) matrix[row][col];
+            }
+            else {
+                if (row == 0) x0 = (int) matrix[row][col];
+                else y0 = (int) matrix[row][col];
+            }
         }
 
-        x = x0;
-        y = y0;
-        A = 2 * (y1 - y0);
-        B = -2 * (x1 - x0);
+        if (ready) draw_line(x0, y0, x1, y1, s, c);
+        
+    }
+}
 
-        //octants 1 and 8
-        if ( abs(x1 - x0) >= abs(y1 - y0) ) {
+void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
 
-            //octant 1
-            if ( A > 0 ) {
+    int x, y, d, A, B;
+    //swap points if going right -> left
+    int xt, yt;
+    if (x0 > x1)
+    {
+        xt = x0;
+        yt = y0;
+        x0 = x1;
+        y0 = y1;
+        x1 = xt;
+        y1 = yt;
+    }
 
-                d = A + B/2;
-                while ( x < x1 ) {
-                    plot( s, c, x, y );
-                    if ( d > 0 ) {
-                        y+= 1;
-                        d+= B;
-                    }
-                    x++;
-                    d+= A;
-                } //end octant 1 while
-                plot( s, c, x1, y1 );
-            } //end octant 1
+    x = x0;
+    y = y0;
+    A = 2 * (y1 - y0);
+    B = -2 * (x1 - x0);
 
-            //octant 8
-            else {
-                d = A - B/2;
+    //octants 1 and 8
+    if (abs(x1 - x0) >= abs(y1 - y0))
+    {
 
-                while ( x < x1 ) {
-                    //printf("(%d, %d)\n", x, y);
-                    plot( s, c, x, y );
-                    if ( d < 0 ) {
-                        y-= 1;
-                        d-= B;
-                    }
-                    x++;
-                    d+= A;
-                } //end octant 8 while
-                plot( s, c, x1, y1 );
-            } //end octant 8
-        }//end octants 1 and 8
+        //octant 1
+        if (A > 0)
+        {
 
-        //octants 2 and 7
-        else {
+            d = A + B / 2;
+            while (x < x1)
+            {
+                plot(s, c, x, y);
+                if (d > 0)
+                {
+                    y += 1;
+                    d += B;
+                }
+                x++;
+                d += A;
+            } //end octant 1 while
+            plot(s, c, x1, y1);
+        } //end octant 1
 
-            //octant 2
-            if ( A > 0 ) {
-                d = A/2 + B;
+        //octant 8
+        else
+        {
+            d = A - B / 2;
 
-                while ( y < y1 ) {
-                    plot( s, c, x, y );
-                    if ( d < 0 ) {
-                        x+= 1;
-                        d+= A;
-                    }
-                    y++;
-                    d+= B;
-                } //end octant 2 while
-                plot( s, c, x1, y1 );
-            } //end octant 2
+            while (x < x1)
+            {
+                //printf("(%d, %d)\n", x, y);
+                plot(s, c, x, y);
+                if (d < 0)
+                {
+                    y -= 1;
+                    d -= B;
+                }
+                x++;
+                d += A;
+            } //end octant 8 while
+            plot(s, c, x1, y1);
+        } //end octant 8
+    }     //end octants 1 and 8
 
-            //octant 7
-            else {
-                d = A/2 - B;
+    //octants 2 and 7
+    else
+    {
 
-                while ( y > y1 ) {
-                    plot( s, c, x, y );
-                    if ( d > 0 ) {
-                        x+= 1;
-                        d+= A;
-                    }
-                    y--;
-                    d-= B;
-                } //end octant 7 while
-                plot( s, c, x1, y1 );
-            } //end octant 7
-        }//end octants 2 and 7
-    } //end draw_line
+        //octant 2
+        if (A > 0)
+        {
+            d = A / 2 + B;
+
+            while (y < y1)
+            {
+                plot(s, c, x, y);
+                if (d < 0)
+                {
+                    x += 1;
+                    d += A;
+                }
+                y++;
+                d += B;
+            } //end octant 2 while
+            plot(s, c, x1, y1);
+        } //end octant 2
+
+        //octant 7
+        else
+        {
+            d = A / 2 - B;
+
+            while (y > y1)
+            {
+                plot(s, c, x, y);
+                if (d > 0)
+                {
+                    x += 1;
+                    d += A;
+                }
+                y--;
+                d -= B;
+            } //end octant 7 while
+            plot(s, c, x1, y1);
+        } //end octant 7
+    }     //end octants 2 and 7
+} //end draw_line

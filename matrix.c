@@ -61,9 +61,9 @@ a*b -> b
 void matrix_mult(struct matrix *a, struct matrix *b) {
     double ** a_matrix = a -> m;
     double ** b_matrix = b -> m;
-    int a_rows = a -> rows;
-    int b_rows = b -> rows;
+    int a_rows = 4;
     int a_cols = a -> cols;
+    int b_rows = b -> rows;
     int b_cols = b -> cols;
 
     if (a_cols != b_rows) {
