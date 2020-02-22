@@ -61,7 +61,7 @@ a*b -> b
 void matrix_mult(struct matrix *a, struct matrix *b) {
     double ** a_matrix = a -> m;
     double ** b_matrix = b -> m;
-    int a_rows = 4;
+    int a_rows = a -> rows;
     int a_cols = a -> cols;
     int b_rows = b -> rows;
     int b_cols = b -> cols;
@@ -71,7 +71,7 @@ void matrix_mult(struct matrix *a, struct matrix *b) {
         return;
     }
 
-    struct matrix *copy = new_matrix(a_rows, b_cols);
+    struct matrix *copy = new_matrix(b_rows, b_cols);
     copy_matrix(b, copy);
     double ** copy_matrix = copy -> m;
 

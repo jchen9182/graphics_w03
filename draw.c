@@ -15,8 +15,19 @@ Returns:
 adds point (x, y, z) to points and increment points.lastcol
 if points is full, should call grow on points
 ====================*/
-void add_point(struct matrix *points, double x, double y, double z)
-{
+void add_point(struct matrix *points, double x, double y, double z) {
+    double ** matrix = points -> m;
+    int cols = points -> cols;
+    int lastcol = points -> lastcol;
+
+    if (lastcol == cols) grow_matrix(points, ++(points -> cols));
+
+    matrix[0][lastcol] = x;
+    matrix[1][lastcol] = y;
+    matrix[2][lastcol] = z;
+    matrix[3][lastcol] = 1;
+
+    points -> lastcol++;
 }
 
 /*======== void add_edge() ==========
@@ -29,6 +40,8 @@ should use add_point
 void add_edge(struct matrix *points,
               double x0, double y0, double z0,
               double x1, double y1, double z1) {
+    add_point(points, x0, y0, z0);
+    add_point(points, x1, y1, z1);
 }
 
 /*======== void draw_lines() ==========
