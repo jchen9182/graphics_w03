@@ -75,13 +75,15 @@ void matrix_mult(struct matrix *a, struct matrix *b) {
     copy_matrix(b, copy);
     double ** copy_matrix = copy -> m;
 
-    for (int b_c = 0; b_c < b_cols; b_c++) {
-        for (int a_r = 0; a_r < a_rows; a_r++) {
+    for (int bcol = 0; bcol < b_cols; bcol++) {
+        for (int arow = 0; arow < a_rows; arow++) {
             double result = 0;
-            for (int a_c = 0; a_c < a_cols; a_c++) { // a_c is the same as b_r
-                result += a_matrix[a_r][a_c] * copy_matrix[a_c][a_r];
+            for (int acol = 0; acol < a_cols; acol++) { // acol = brow
+                double left = a_matrix[arow][acol];
+                double right = copy_matrix[acol][bcol];
+                result += left * right;
             }
-            b_matrix[a_r][b_c] = result;
+            b_matrix[arow][bcol] = result;
         }
     }
 }

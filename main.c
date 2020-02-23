@@ -15,8 +15,6 @@ int main() {
     //
     // free_matrix(edges);
 
-    printf("TESTING MATRIX FUNCTIONS:\n\n");
-
     printf("Testing add_edge(m2, 1, 2, 3, 4, 5, 6):\n");
     struct matrix * m2 = new_matrix(4, 1);
     add_edge(m2, 1, 2, 3, 4, 5, 6);
@@ -25,6 +23,17 @@ int main() {
     printf("\nTesting ident(m1):\n");
     struct matrix * m1 = new_matrix(4, 4);
     ident(m1);
+    print_matrix(m1);
+
+    printf("\nTesting matrix_mult(m1, m2):\n");
+    matrix_mult(m1, m2);
+    print_matrix(m2);
+
+    printf("\nUpdating m1:\n");
+    free_matrix(m1);
+    m1 = new_matrix(4, 4);
+    add_edge(m1, 1, 2, 3, 4, 5, 6);
+    add_edge(m1, 7, 8, 9, 10, 11, 12);
     print_matrix(m1);
 
     printf("\nTesting matrix_mult(m1, m2):\n");
