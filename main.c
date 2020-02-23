@@ -8,13 +8,7 @@
 #include "matrix.h"
 
 int main() {
-    // screen s;
-    // struct matrix *edges;
-    //
-    // edges = new_matrix(4, 4);
-    //
-    // free_matrix(edges);
-
+    // Testing
     printf("Testing add_edge(m2, 1, 2, 3, 4, 5, 6):\n");
     struct matrix * m2 = new_matrix(4, 1);
     add_edge(m2, 1, 2, 3, 4, 5, 6);
@@ -42,4 +36,17 @@ int main() {
 
     free_matrix(m1);
     free_matrix(m2);
+
+    // Drawing
+    screen s;
+    color c;
+
+    clear_screen(s);
+
+
+    display(s);
+    save_extension(s, "lines.png");
+    save_ppm(s, "binary.ppm");
+    save_ppm_ascii(s, "ascii.ppm");
+
 }
